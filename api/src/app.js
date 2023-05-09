@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import cors from 'cors';
-import router from './routes';
+import router from './routes/index';
 
 const app = express();
 app.use(bodyParser.json());

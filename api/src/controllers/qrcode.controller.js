@@ -20,7 +20,7 @@ const generateQRCode = async (req, res) => {
   }
 };
 
-const getQRCode = async (req, res) => {
+const getQRCodes = async (req, res) => {
   try {
     const qrCodes = await QrCode.find();
     res.json(qrCodes);
@@ -29,7 +29,7 @@ const getQRCode = async (req, res) => {
   }
 };
 
-const getQRCodes = async (req, res) => {
+const getQRCode = async (req, res) => {
   const { id } = req.params;
   try {
     const qrCode = await QrCode.findById(id);
@@ -53,4 +53,4 @@ const deleteQRCode = async (req, res) => {
 };
 
 
-export {getHome, generateQRCode, getQRCode, getQRCodes, deleteQRCode}
+export {getHome, generateQRCode, getQRCode, getQRCodes, deleteQRCode};
