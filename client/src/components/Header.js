@@ -6,7 +6,7 @@ function Header() {
     <>
         <header style={{padding:"1%"}} >
             <form >
-                <input type='text' placeholder='Search'/>
+                <input type='text' placeholder='Search' style={{float:"left"}}/>
             </form>
             <Button variant="warning" style={{float:"right", width:"5%"}}>Generate</Button>
             <Button variant="success" style={{float:"right", width:"5%"}}>Generate</Button>
