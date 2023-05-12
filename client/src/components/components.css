@@ -1,0 +1,17 @@
+input {
+    float:left;
+    margin-left:27%;
+    width:40%;
+}
+
+footer {
+    position: absolute;
+    background-color: #6b7791;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2em;
+    border-top-style: ridge;
+    color: white;
+    text-align: center;
+  }
