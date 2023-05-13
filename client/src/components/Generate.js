@@ -2,17 +2,36 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { generateCode } from "../api/qrcode";
 
 function Generate() {
   const [show, setShow] = useState(false);
-
+  const [formData, setFormData] = useState({
+    title:"",
+    url:""
+  })
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleInputChange = (event) => {
+    const {name, value} = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name] : value
+    }))
+  }
+
+  const handleGenerate = () => {
+    const  createCode = async () => {
+      const data = await generateCode(formData.title, formData.url);
+    }
+    createCode();
+  }
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+    <div style={{float:"right", width:"5%"}} >
+      <Button variant="success" onClick={handleShow}>
+        Generate
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -24,9 +43,12 @@ function Generate() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>QR Code Title</Form.Label>
               <Form.Control
-                type="email"
+                type="text"
                 placeholder="Enter your title here"
                 autoFocus
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group
@@ -36,14 +58,17 @@ function Generate() {
               <Form.Label>URL</Form.Label>
               <Form.Control
                 as="textarea"
+                name="url"
                 rows={3}
                 placeholder="Enter your url here"
+                value={formData.url}
+                onChange={handleInputChange}
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleGenerate}>
             Generate
           </Button>
           <Button variant="secondary" onClick={handleClose}>
@@ -51,7 +76,7 @@ function Generate() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Logo from '../assets/images/logo.png'
+import Generate from './Generate'
 
 function Header() {
   return (
@@ -10,8 +11,8 @@ function Header() {
             <form >
                 <input className='searchInput' type='text' placeholder='Search' />
             </form>
-            <Button variant="warning" style={{float:"right", width:"5%"}}>Generate</Button>
-            <Button variant="success" style={{float:"right", width:"5%"}}>Generate</Button>
+            <Button variant="warning" style={{float:"right", width:"5%"}}>Show</Button>
+            <Generate />
         </header>
     </div>
   )

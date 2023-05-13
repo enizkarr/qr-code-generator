@@ -5,7 +5,7 @@ const apiUrl = config.apiPath;
 
 const listCodes = async () => {
     try{
-    const response = await axios.get(apiUrl);
+    const response = await axios.get("/");
     return response;
     }
     catch(error) {
@@ -14,6 +14,8 @@ const listCodes = async () => {
 }
 
 const generateCode = async (title, url) => {
+    console.log(title)
+    console.log(url)
     try {
         const response = await axios.post(`${apiUrl}`, {title, url})
     } catch(error) {

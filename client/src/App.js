@@ -15,7 +15,6 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home/>}></Route>
-          <Route path="/qrcode" element={<Generate/>} ></Route>
           <Route path="/qrcode/:id" element={<Show/>}></Route>
         </Routes>
         <Footer />
