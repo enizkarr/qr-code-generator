@@ -17,6 +17,7 @@ function Show(props) {
   const [modalShow, setModalShow] = useState(true);
 
 useEffect(() => {
+  setModalShow();
   fetchCode();
 }, [])
 
