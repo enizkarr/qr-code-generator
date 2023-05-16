@@ -8,24 +8,29 @@ function Show(props) {
 
   const {id} = useParams();
 
-  const [code, setCode] = useState();
+  const [code, setCode] = useState({
+    title:'',
+    url:''
+  });
   const fetchCode = async () => {
     const data = await openCode(id);
-    console.log(data.data)
-    // setCode(data.data);
+    const {title, url} = data.data;
+    setCode({title, url});
   }
   const [modalShow, setModalShow] = useState(true);
 
+
 useEffect(() => {
-  setModalShow();
   fetchCode();
 }, [])
 
 const handleModalShow = () => {
   setModalShow(true);
 };
+
+console.log(code.title)
+
   return (
-    <div>
       <Modal
         show={modalShow}
         
@@ -34,21 +39,17 @@ const handleModalShow = () => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">{code}</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">{code.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
           <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
+            {code.url}
           </p>
         </Modal.Body>
         <Modal.Footer>
           <Button >Close</Button>
         </Modal.Footer>
       </Modal>
-    </div>
   )
 }
 
