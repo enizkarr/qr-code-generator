@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { openCode } from '../api/qrcode';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function Show(props) {
-
+  const navigate = useNavigate();
   const {id} = useParams();
 
   const [code, setCode] = useState({
@@ -28,7 +28,10 @@ const handleModalShow = () => {
   setModalShow(true);
 };
 
-console.log(code.title)
+const handleClose = () => {
+  navigate('/');
+}
+
 
   return (
       <Modal
@@ -47,7 +50,7 @@ console.log(code.title)
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button >Close</Button>
+          <Button onClick={handleClose} >Close</Button>
         </Modal.Footer>
       </Modal>
   )
