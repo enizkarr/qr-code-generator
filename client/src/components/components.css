@@ -1,23 +1,58 @@
 .searchInput {
-    float:left;
-    margin-left:27%;
-    width:40%;
+  float: left;
+  margin-left: 27%;
+  width: 40%;
 }
 
 footer {
-    position: absolute;
-    background-color: #6b7791;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 2em;
-    border-top-style: ridge;
-    color: white;
-    text-align: center;
-  }
+  position: absolute;
+  background-color: #6b7791;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2em;
+  border-top-style: ridge;
+  color: white;
+  text-align: center;
+}
 
-  .homeDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+.homeDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+h3 {
+  margin-bottom: 10%;
+}
+.image-container {
+  position: relative;
+}
+
+.presImg1 {
+  position: absolute;
+  top: 7rem;
+  left: 23%;
+  transform: rotate(45deg);
+}
+.presImg2 {
+  transform: rotate(45deg);
+  position: absolute;
+  left: 50%;
+  top: 11rem;
+  z-index: 1;
+}
+
+.homeList {
+  display: flex;
+  width: 100vw;
+  padding: 0px;
+  list-style: none;
+}
+
+.homeList h3{
+  padding-top: 2%;
+  flex-grow: 1;
+  text-align: center;
+}
+

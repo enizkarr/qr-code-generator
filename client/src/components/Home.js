@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { listCodes } from "../api/qrcode";
 import QRandom from "../assets/images/QRandom.jpg";
-import LocationImg from "../assets/images/Location.jpg"
+import LocationImg from "../assets/images/Location.jpg";
 
 function Home() {
   const [codes, setCodes] = useState([]);
@@ -21,13 +21,26 @@ function Home() {
 
   return (
     <div className="homeDiv">
-      <div>
-        <h3>QR Code</h3>
-        <img src={QRandom} />
-      </div>
-      <div>
-        <h3>QR Code Title</h3>
-        <img src={LocationImg} style={{maxWidth:"600px"}}/>
+      <div className="image-container">
+        <div className="homeList">
+          <h3>Create</h3>
+          <h3>Your Own</h3>
+          <h3>QR Codes</h3>
+        </div>
+        <div style={{ marginTop: "3%" }}>
+          <img
+            className="presImg1"
+            src={QRandom}
+            style={{ maxWidth: "510px" }}
+          />
+        </div>
+        <div style={{ marginTop: "3%" }}>
+          <img
+            className="presImg2"
+            src={LocationImg}
+            style={{ maxWidth: "500px", height: "440px" }}
+          />
+        </div>
       </div>
     </div>
   );
