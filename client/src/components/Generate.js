@@ -29,14 +29,14 @@ function Generate() {
   }
 
   return (
-    <div style={{float:"right", width:"5%"}} >
+    <div className="headerDiv" style={{float:"right", width:"5%"}} >
       <Button variant="success" onClick={handleShow}>
         Generate
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Generate my QR Code</Modal.Title>
+          <Modal.Title>Generate QR Code</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
