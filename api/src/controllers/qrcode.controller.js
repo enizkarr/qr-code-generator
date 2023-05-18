@@ -2,6 +2,7 @@ import _ from "lodash";
 import QrCode from "../models/Qcode.model";
 import QRCode from "qrcode";
 import path from "path";
+import fs from "fs"
 
 const getHome = async (req, res) => {
   try {
@@ -13,15 +14,19 @@ const getHome = async (req, res) => {
 
 const generateQRCode = async (req, res) => {
   const { title, url } = req.body;
+
   try {
     const qrCode = new QrCode({ title, url });
     await qrCode.save();
-
+    const {_id} = qrCode
     //
     const qrCodeDataURL = await QRCode.toDataURL(url);
-    // console.log(qrCodeDataURL)
+    // console.log(await QRCode.toDataURL(url))
+    console.log(`this is id${qrCode._id}.png`)
+
     const filename = `${qrCode._id}.png`;
-    const filePath = path.join(__dirname, "../../qr-code", filename);
+    const filePath = path.join("../../qr-code/", filename);
+    console.log(`this is id` , filePath)
     await fs.promises.writeFile(
       filePath,
       qrCodeDataURL.split(",")[1],
