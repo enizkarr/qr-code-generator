@@ -25,7 +25,7 @@ const generateQRCode = async (req, res) => {
     console.log(`this is id${qrCode._id}.png`)
 
     const filename = `${qrCode._id}.png`;
-    const filePath = path.join("../../qr-code/", filename);
+    const filePath = path.join(__dirname, `../../qr-code/${filename}`);
     console.log(`this is id` , filePath)
     await fs.promises.writeFile(
       filePath,
