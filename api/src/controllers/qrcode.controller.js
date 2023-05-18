@@ -1,5 +1,7 @@
 import _ from "lodash";
 import QrCode from "../models/Qcode.model";
+import QRCode from "qrcode";
+import path from "path";
 
 const getHome = async (req, res) => {
   try {
@@ -14,6 +16,21 @@ const generateQRCode = async (req, res) => {
   try {
     const qrCode = new QrCode({ title, url });
     await qrCode.save();
+
+    //
+    const qrCodeDataURL = await QRCode.toDataURL(url);
+    // console.log(qrCodeDataURL)
+    const filename = `${qrCode._id}.png`;
+    const filePath = path.join(__dirname, "../../qr-code", filename);
+    await fs.promises.writeFile(
+      filePath,
+      qrCodeDataURL.split(",")[1],
+      "base64"
+    );
+
+    qrCode.filename = filename;
+    await qrCode.save();
+    //
     res.status(201).json(qrCode);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -52,5 +69,4 @@ const deleteQRCode = async (req, res) => {
   }
 };
 
-
-export {getHome, generateQRCode, getQRCode, getQRCodes, deleteQRCode};
+export { getHome, generateQRCode, getQRCode, getQRCodes, deleteQRCode };

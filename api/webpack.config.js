@@ -6,6 +6,7 @@ module.exports = {
     path: path.join(__dirname, "/dist"),
     filename: "main.js",
   },
+  externalsPresets: { node: true },
   externals: [nodeExternals()],
   module: {
     rules: [

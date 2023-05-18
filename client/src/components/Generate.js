@@ -21,11 +21,12 @@ function Generate() {
     }))
   }
 
-  const handleGenerate = () => {
-    const  createCode = async () => {
+  const handleGenerate = async () => {
+    try {
       const data = await generateCode(formData.title, formData.url);
+    } catch (error) {
+      console.error("this is an error",error);
     }
-    createCode();
   }
 
   return (

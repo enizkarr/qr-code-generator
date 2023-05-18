@@ -71,5 +71,9 @@ footer {
 .cardsDiv{
   width: 100%;
   height: 100%;
+  margin: 1%;
   display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
