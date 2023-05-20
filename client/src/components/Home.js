@@ -9,12 +9,11 @@ function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
 
   function renderCodes() {
-    const { qrCodeDataURL } = codes;
     return (
       <div className="cardsDiv">
         {codes.map((code, index) => (
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Img variant="top" src={code.qrCodeDataURL} />
             <Card.Body>
               <Card.Title>{code.title}</Card.Title>
               <Card.Text></Card.Text>
