@@ -9,20 +9,19 @@ function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
 
   function renderCodes() {
+    const { qrCodeDataURL } = codes;
     return (
       <div className="cardsDiv">
         {codes.map((code, index) => (
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>{code.title}</Card.Title>
-            <Card.Text>
-              
-            </Card.Text>
-            <Button variant="primary">Open</Button>
-            <Button variant="primary">Delete</Button>
-          </Card.Body>
-        </Card>
+          <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Title>{code.title}</Card.Title>
+              <Card.Text></Card.Text>
+              <Button variant="primary">Open</Button>
+              <Button variant="primary">Delete</Button>
+            </Card.Body>
+          </Card>
         ))}
       </div>
     );
