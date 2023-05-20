@@ -2,7 +2,7 @@ import _ from "lodash";
 import QrCode from "../models/Qcode.model";
 import QRCode from "qrcode";
 import path from "path";
-import fs from "fs"
+import fs from "fs";
 
 const getHome = async (req, res) => {
   try {
@@ -16,14 +16,9 @@ const generateQRCode = async (req, res) => {
   const { title, url } = req.body;
 
   try {
-    const qrCode = new QrCode({ title, url });
-    await qrCode.save();
-    const {_id} = qrCode
-    //
     const qrCodeDataURL = await QRCode.toDataURL(url);
-    // console.log(await QRCode.toDataURL(url))
-   
-    //
+    const qrCode = new QrCode({ title, url, qrCodeDataURL });
+    await qrCode.save();
     res.status(201).json(qrCode);
   } catch (err) {
     res.status(400).json({ message: err.message });

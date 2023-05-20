@@ -14,6 +14,10 @@ const QrCodeSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  QRCode: {
+    type: String,
+    required: true,
+  }
 });
 
 export default mongoose.model("QrCode", QrCodeSchema);
