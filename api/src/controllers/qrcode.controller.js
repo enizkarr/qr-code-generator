@@ -22,19 +22,7 @@ const generateQRCode = async (req, res) => {
     //
     const qrCodeDataURL = await QRCode.toDataURL(url);
     // console.log(await QRCode.toDataURL(url))
-    console.log(`this is id${qrCode._id}.png`)
-
-    const filename = `${qrCode._id}.png`;
-    const filePath = path.join(__dirname, `../../qr-code/${filename}`);
-    console.log(`this is id` , filePath)
-    await fs.promises.writeFile(
-      filePath,
-      qrCodeDataURL.split(",")[1],
-      "base64"
-    );
-
-    qrCode.filename = filename;
-    await qrCode.save();
+   
     //
     res.status(201).json(qrCode);
   } catch (err) {
