@@ -4,6 +4,7 @@ import QRandom from "../assets/images/QRandom.jpg";
 import LocationImg from "../assets/images/Location.jpg";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Phone  from '../assets/images/phone.svg';
 
 function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
@@ -17,7 +18,8 @@ function Home({ codes }) {
             <Card.Body>
               <Card.Title>{code.title}</Card.Title>
               <Card.Text></Card.Text>
-              <Button variant="primary">Open</Button>
+              
+              <Button variant="link"><img src={Phone} style={{width:"2rem"}} /></Button>
               <Button variant="primary">Delete</Button>
             </Card.Body>
           </Card>

@@ -14,7 +14,7 @@ const QrCodeSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  QRCode: {
+  qrCodeDataURL: {
     type: String,
     required: true,
   }

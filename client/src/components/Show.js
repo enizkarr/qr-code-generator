@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { openCode } from '../api/qrcode';
 import { useParams, useNavigate } from 'react-router-dom';
 
+
 function Show(props) {
   const navigate = useNavigate();
   const {id} = useParams();
