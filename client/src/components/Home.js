@@ -5,22 +5,32 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Phone from "../assets/images/phone.svg";
 import { removeCode } from "../api/qrcode";
+import Modal from "react-bootstrap/Modal";
 
 function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
-   
-  const handleDelete  = async (id) => {
+
+  const handleDelete = async (id) => {
     try {
-      if(confirmationModal===false) {
-        setConfirmationModal(true);
-      }
-      const data = await removeCode(id);
+      setCodeToDelete(id);
+      setConfirmationModal(true);
     } catch (error) {
-      console.error("this is an error",error);
+      console.error("this is an error", error);
     }
-  }
+  };
+  const confirmDelete = async () => {
+    try {
+      if (codeToDelete) {
+        await removeCode(codeToDelete);
+        setCodeToDelete(null);
+        setConfirmationModal(false);
+      }
+    } catch (error) {
+      console.log("Thisis an error", error);
+    }
+  };
 
   function renderCodes() {
     return (
@@ -51,7 +61,11 @@ function Home({ codes }) {
               >
                 <img src={Phone} style={{ width: "2.5rem" }} />
               </Button>
-              <Button variant="primary" onClick={()=>handleDelete(code._id)} style={{ width: "100%" }}>
+              <Button
+                variant="primary"
+                onClick={() => handleDelete(code._id)}
+                style={{ width: "100%" }}
+              >
                 Delete
               </Button>
             </Card.Body>
@@ -89,7 +103,31 @@ function Home({ codes }) {
     );
   }
 
-  return <div>{renderCodes()}</div>;
+  return (
+    <div>
+      {renderCodes()}
+      <Modal
+        show={confirmationModal}
+        onHide={() => setConfirmationModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this QR code?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setConfirmationModal(false)}
+          >
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 
 export default Home;

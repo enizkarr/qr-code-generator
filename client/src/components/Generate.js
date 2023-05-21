@@ -3,8 +3,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { generateCode } from "../api/qrcode";
+import { useNavigate } from "react-router-dom";
 
 function Generate() {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     title:"",
@@ -27,6 +29,7 @@ function Generate() {
     } catch (error) {
       console.error("this is an error",error);
     }
+  navigate('/qrcode');
   }
 
   return (
