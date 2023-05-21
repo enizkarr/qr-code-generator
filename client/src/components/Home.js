@@ -1,26 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { listCodes } from "../api/qrcode";
 import QRandom from "../assets/images/QRandom.jpg";
 import LocationImg from "../assets/images/Location.jpg";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Phone  from '../assets/images/phone.svg';
+import Phone from "../assets/images/phone.svg";
+import { removeCode } from "../api/qrcode";
 
 function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
+  const [confirmationModal, setConfirmationModal] = useState(false);
+  const [codeToDelete, setCodeToDelete] = useState(null);
+   
+  const handleDelete  = async (id) => {
+    try {
+      if(confirmationModal===false) {
+        setConfirmationModal(true);
+      }
+      const data = await removeCode(id);
+    } catch (error) {
+      console.error("this is an error",error);
+    }
+  }
 
   function renderCodes() {
     return (
       <div className="cardsDiv">
         {codes.map((code, index) => (
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "18rem", fontFamily: "Mogra" }}>
+            <Card.Title
+              style={{
+                margin: "0px",
+                textAlign: "center",
+                fontFamily: "Mogra",
+              }}
+            >
+              {code.title}
+            </Card.Title>
             <Card.Img variant="top" src={code.qrCodeDataURL} />
-            <Card.Body>
-              <Card.Title>{code.title}</Card.Title>
-              <Card.Text></Card.Text>
-              
-              <Button variant="link"><img src={Phone} style={{width:"2rem"}} /></Button>
-              <Button variant="primary">Delete</Button>
+            <Card.Body
+              style={{
+                display: "grid",
+                justifyItems: "center",
+                paddingTop: "0px",
+                marginTop: "0px",
+              }}
+            >
+              <Button
+                variant="link"
+                style={{ paddingTop: "0px", maxWidth: "60px" }}
+              >
+                <img src={Phone} style={{ width: "2.5rem" }} />
+              </Button>
+              <Button variant="primary" onClick={()=>handleDelete(code._id)} style={{ width: "100%" }}>
+                Delete
+              </Button>
             </Card.Body>
           </Card>
         ))}
