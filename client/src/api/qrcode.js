@@ -26,7 +26,7 @@ const generateCode = async (title, url) => {
 const openCode = async (id) => {
     try {
       const data = await axios.get(`${apiUrl}/${id}`);
-      return data;
+      return data.data;
     } catch (error) {
       console.log(error);
     }

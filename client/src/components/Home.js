@@ -6,11 +6,25 @@ import Button from "react-bootstrap/Button";
 import Phone from "../assets/images/phone.svg";
 import { removeCode } from "../api/qrcode";
 import Modal from "react-bootstrap/Modal";
+import { ExclamationTriangleFill } from 'react-bootstrap-icons';
+import { openCode } from "../api/qrcode";
 
 function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
+  const [openedCode, setOpenedCode] = useState(null);
+  const [showOpenedCodeModal, setShowOpenedCodeModal] = useState(false);
+
+  const handleClick = async (id) => {
+    try {
+      const dataFromCode = await openCode(id)
+      setOpenedCode(dataFromCode);
+      setShowOpenedCodeModal(true)
+    } catch (error) {
+      console.error("this is an error", error);
+    }
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -36,7 +50,7 @@ function Home({ codes }) {
     return (
       <div className="cardsDiv">
         {codes.map((code, index) => (
-          <Card style={{ width: "18rem", fontFamily: "Mogra" }}>
+          <Card key={code._id} style={{ width: "18rem", fontFamily: "Mogra" }}>
             <Card.Title
               style={{
                 margin: "0px",
@@ -57,6 +71,7 @@ function Home({ codes }) {
             >
               <Button
                 variant="link"
+                onClick={() => handleClick(code._id)}
                 style={{ paddingTop: "0px", maxWidth: "60px" }}
               >
                 <img src={Phone} style={{ width: "2.5rem" }} />
@@ -103,6 +118,32 @@ function Home({ codes }) {
     );
   }
 
+  const openedCodeDetails = () => {
+    if(openedCode === null) {
+      return null;
+    }
+    const {title, qrCodeDataURL} = openedCode;
+    return (
+      <Modal
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={showOpenedCodeModal}
+        onHide={() => setShowOpenedCodeModal(false)}
+      >
+        <Modal.Body>
+          <p>
+            Scan the QR Code to access our location! Open the location in mobile browser.
+          </p>
+          <Card.Img variant="top" src={qrCodeDataURL} style={{maxWidth:"60%"}} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowOpenedCodeModal(false)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    )
+  }
+  console.log(openedCode)
   return (
     <div>
       {renderCodes()}
@@ -111,9 +152,11 @@ function Home({ codes }) {
         onHide={() => setConfirmationModal(false)}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
+          <Modal.Title>Delete!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this QR code?</Modal.Body>
+        <Modal.Body style={{ display: "flex", columnGap: "4%", alignItems: "center" }}>
+          <ExclamationTriangleFill size={40} color="orange" />
+          Are you sure?</Modal.Body>
         <Modal.Footer>
           <Button
             variant="secondary"
@@ -126,6 +169,7 @@ function Home({ codes }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      {openedCodeDetails() }
     </div>
   );
 }
