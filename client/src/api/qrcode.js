@@ -40,4 +40,12 @@ const openCode = async (id) => {
     }
   };
 
-  export {listCodes, generateCode, openCode, removeCode}
+  const downloadCode = async (id) => {
+    try {
+      await axios.get(`${apiUrl}/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  export {listCodes, generateCode, openCode, removeCode, downloadCode}

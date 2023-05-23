@@ -8,6 +8,7 @@ import { removeCode } from "../api/qrcode";
 import Modal from "react-bootstrap/Modal";
 import { ExclamationTriangleFill } from 'react-bootstrap-icons';
 import { openCode } from "../api/qrcode";
+import {downloadCode} from "../api/qrcode"
 
 function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
@@ -45,6 +46,15 @@ function Home({ codes }) {
       console.log("Thisis an error", error);
     }
   };
+
+  const handleDownload = async (id) => {
+    try {
+      await downloadCode(id);
+      console.log("download successful")
+    } catch(error) {
+      console.log("Thisis an error", error);
+    }
+  }
 
   function renderCodes() {
     return (
@@ -118,11 +128,12 @@ function Home({ codes }) {
     );
   }
 
+
   const openedCodeDetails = () => {
     if(openedCode === null) {
       return null;
     }
-    const {title, qrCodeDataURL} = openedCode;
+    const {title, qrCodeDataURL, _id} = openedCode;
     return (
       <Modal
         size="lg"
@@ -131,14 +142,16 @@ function Home({ codes }) {
         show={showOpenedCodeModal}
         onHide={() => setShowOpenedCodeModal(false)}
       >
-        <Modal.Body>
+        <Modal.Body style={{display:"flex", flexDirection:"column", justifyContent:"center" }}>
           <p>
             Scan the QR Code to access our location! Open the location in mobile browser.
           </p>
           <Card.Img variant="top" src={qrCodeDataURL} style={{maxWidth:"60%"}} />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setShowOpenedCodeModal(false)}>Close</Button>
+          <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
+          <Button onClick={() => handleDownload(_id)}>Download</Button>
+          <Button onClick={() => handleDelete(_id)}>Delete</Button>
         </Modal.Footer>
       </Modal>
     )
