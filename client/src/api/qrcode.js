@@ -42,7 +42,7 @@ const openCode = async (id) => {
 
   const downloadCode = async (id) => {
     try {
-      await axios.get(`${apiUrl}/${id}`);
+      await axios.get(`/api/qrcode/${id}`, { responseType: 'blob' });
     } catch (error) {
       console.log(error);
     }
