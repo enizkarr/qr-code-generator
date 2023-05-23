@@ -57,4 +57,19 @@ const deleteQRCode = async (req, res) => {
   }
 };
 
-export { getHome, generateQRCode, getQRCode, getQRCodes, deleteQRCode };
+const downloadCode = async (req, res) => {
+  const { id } = req.params;
+  app.get('/download', function(req, res){
+    const file = `${__dirname}/upload-folder/dramaticpenguin.MOV`;
+    res.download(file); // Set disposition and send it.
+  });
+};
+
+export {
+  getHome,
+  generateQRCode,
+  getQRCode,
+  getQRCodes,
+  deleteQRCode,
+  downloadCode,
+};

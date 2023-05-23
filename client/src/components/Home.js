@@ -9,7 +9,7 @@ import Modal from "react-bootstrap/Modal";
 import { ExclamationTriangleFill } from 'react-bootstrap-icons';
 import { openCode } from "../api/qrcode";
 import {downloadCode} from "../api/qrcode"
-
+import axios from "axios";
 function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
   const [confirmationModal, setConfirmationModal] = useState(false);
@@ -47,14 +47,22 @@ function Home({ codes }) {
     }
   };
 
-  const handleDownload = async (id) => {
+  const handleDownload = async (id, filename, urlCode) => {
     try {
-      await downloadCode(id);
-      console.log("download successful")
-    } catch(error) {
-      console.log("Thisis an error", error);
+      const response = await axios.get(`/api/qrcode/download/${id}`, { responseType: 'blob' });
+      const blob = new Blob([response.data]);
+      const url = URL.createObjectURL(blob);
+  
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.click();
+  
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.log("This is an error", error);
     }
-  }
+  };
 
   function renderCodes() {
     return (
@@ -150,7 +158,7 @@ function Home({ codes }) {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
-          <Button onClick={() => handleDownload(_id)}>Download</Button>
+          <Button onClick={() => handleDownload(_id, title, qrCodeDataURL)}>Download</Button>
           <Button onClick={() => handleDelete(_id)}>Delete</Button>
         </Modal.Footer>
       </Modal>
