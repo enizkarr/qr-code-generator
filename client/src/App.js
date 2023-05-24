@@ -13,7 +13,7 @@ function App() {
   const [codes, setCodes] = useState([]);
   const [toggleShow, setToggleShow] = useState(false);
 
- useEffect(() => {
+  useEffect(() => {
     const fetchCodes = async () => {
       const data = await listCodes();
       setCodes(data.data);
@@ -24,11 +24,14 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header  setToggleShow={setToggleShow}/>
+        <Header setToggleShow={setToggleShow} toggleShow={toggleShow} />
         <Routes>
           <Route path="/" element={<Home codes={codes} />}></Route>
+          <Route
+            path="/qrcode/"
+            element={<Home toggleShow={toggleShow} />}
+          ></Route>
           <Route path="/qrcode/:id" element={<Show />}></Route>
-          <Route path="/qrcode/" element={<Show toggleShow={toggleShow} />}></Route>
         </Routes>
         <Footer />
       </Router>

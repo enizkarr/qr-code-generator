@@ -39,13 +39,4 @@ const removeCode = async (id) => {
   }
 };
 
-const downloadCode = async (id) => {
-    try {
-      const data = await axios.get(`${apiUrl}/${id}`);
-      return data.data;
-    } catch (error) {
-      console.log(error);
-    }
-}
-
-export { listCodes, generateCode, openCode, removeCode, downloadCode };
+export { listCodes, generateCode, openCode, removeCode };

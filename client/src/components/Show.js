@@ -13,6 +13,7 @@ function Show(props) {
     title:'',
     url:''
   });
+  
   const fetchCode = async () => {
     const data = await openCode(id);
     const {title, url} = data.data;

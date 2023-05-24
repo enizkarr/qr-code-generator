@@ -8,14 +8,23 @@ import { removeCode } from "../api/qrcode";
 import Modal from "react-bootstrap/Modal";
 import { ExclamationTriangleFill } from "react-bootstrap-icons";
 import { openCode } from "../api/qrcode";
-import { downloadCode } from "../api/qrcode";
-import axios from "axios";
-function Home({ codes, toggleShow }) {
+import { listCodes } from "../api/qrcode";
+
+function Home({ toggleShow }) {
   const [renderShow, setRenderShow] = useState();
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
   const [openedCode, setOpenedCode] = useState(null);
   const [showOpenedCodeModal, setShowOpenedCodeModal] = useState(false);
+  const [codes, setCodes] = useState([]);
+
+  useEffect(() => {
+    const fetchCodes = async () => {
+      const data = await listCodes();
+      setCodes(data.data);
+    };
+    fetchCodes();
+  }, []);
 
   const handleClick = async (id) => {
     try {
@@ -58,7 +67,7 @@ function Home({ codes, toggleShow }) {
     }
   };
 
-  function renderCodes() {
+  const renderCodes = () => {
     return (
       <div className="cardsDiv">
         {codes.map((code, index) => (
@@ -100,9 +109,9 @@ function Home({ codes, toggleShow }) {
         ))}
       </div>
     );
-  }
+  };
 
-  function renderHome() {
+  const renderHome = () => {
     return (
       <div className="homeDiv">
         <div className="image-container">
@@ -128,7 +137,7 @@ function Home({ codes, toggleShow }) {
         </div>
       </div>
     );
-  }
+  };
 
   const openedCodeDetails = () => {
     if (openedCode === null) {
