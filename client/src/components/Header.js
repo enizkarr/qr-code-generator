@@ -3,7 +3,12 @@ import Button from 'react-bootstrap/Button'
 import Logo from '../assets/images/logo.png'
 import Generate from './Generate'
 
-function Header() {
+function Header({setToggleShow}) {
+
+  const handleShow = () => {
+    
+  }
+
   return (
     <div className='headerDiv'>
         <header style={{padding:"1%", height:"6em", borderBottom:"1px solid black"}} >

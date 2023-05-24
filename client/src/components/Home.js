@@ -6,11 +6,11 @@ import Button from "react-bootstrap/Button";
 import Phone from "../assets/images/phone.svg";
 import { removeCode } from "../api/qrcode";
 import Modal from "react-bootstrap/Modal";
-import { ExclamationTriangleFill } from 'react-bootstrap-icons';
+import { ExclamationTriangleFill } from "react-bootstrap-icons";
 import { openCode } from "../api/qrcode";
-import { downloadCode } from "../api/qrcode"
+import { downloadCode } from "../api/qrcode";
 import axios from "axios";
-function Home({ codes }) {
+function Home({ codes, toggleShow }) {
   const [renderShow, setRenderShow] = useState();
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
@@ -19,9 +19,9 @@ function Home({ codes }) {
 
   const handleClick = async (id) => {
     try {
-      const dataFromCode = await openCode(id)
+      const dataFromCode = await openCode(id);
       setOpenedCode(dataFromCode);
-      setShowOpenedCodeModal(true)
+      setShowOpenedCodeModal(true);
     } catch (error) {
       console.error("this is an error", error);
     }
@@ -49,12 +49,10 @@ function Home({ codes }) {
 
   const handleDownload = async (filename, qrCodeDataURL) => {
     try {
-
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = qrCodeDataURL;
       link.download = filename;
       link.click();
-
     } catch (error) {
       console.log("This is an error", error);
     }
@@ -104,7 +102,7 @@ function Home({ codes }) {
     );
   }
 
-  function homePage() {
+  function renderHome() {
     return (
       <div className="homeDiv">
         <div className="image-container">
@@ -132,7 +130,6 @@ function Home({ codes }) {
     );
   }
 
-
   const openedCodeDetails = () => {
     if (openedCode === null) {
       return null;
@@ -146,23 +143,38 @@ function Home({ codes }) {
         show={showOpenedCodeModal}
         onHide={() => setShowOpenedCodeModal(false)}
       >
-        <Modal.Body style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <Modal.Body
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
           <p>
-            Scan the QR Code to access our location! Open the location in mobile browser.
+            Scan the QR Code to access our location! Open the location in mobile
+            browser.
           </p>
-          <Card.Img variant="top" src={qrCodeDataURL} style={{ maxWidth: "60%" }} />
+          <Card.Img
+            variant="top"
+            src={qrCodeDataURL}
+            style={{ maxWidth: "60%" }}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
-          <Button onClick={() => handleDownload(title, qrCodeDataURL)}>Download</Button>
+          <Button onClick={() => handleDownload(title, qrCodeDataURL)}>
+            Download
+          </Button>
           <Button onClick={() => handleDelete(_id)}>Delete</Button>
         </Modal.Footer>
       </Modal>
-    )
-  }
+    );
+  };
+  ////////////
+
   return (
     <div>
-      {renderCodes()}
+      {toggleShow ? renderCodes() : renderHome()}
       <Modal
         show={confirmationModal}
         onHide={() => setConfirmationModal(false)}
@@ -170,9 +182,12 @@ function Home({ codes }) {
         <Modal.Header closeButton>
           <Modal.Title>Delete!</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ display: "flex", columnGap: "4%", alignItems: "center" }}>
+        <Modal.Body
+          style={{ display: "flex", columnGap: "4%", alignItems: "center" }}
+        >
           <ExclamationTriangleFill size={40} color="orange" />
-          Are you sure?</Modal.Body>
+          Are you sure?
+        </Modal.Body>
         <Modal.Footer>
           <Button
             variant="secondary"

@@ -11,6 +11,7 @@ import { listCodes } from "./api/qrcode";
 
 function App() {
   const [codes, setCodes] = useState([]);
+  const [toggleShow, setToggleShow] = useState(false);
 
  useEffect(() => {
     const fetchCodes = async () => {
@@ -23,11 +24,11 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
+        <Header  setToggleShow={setToggleShow}/>
         <Routes>
           <Route path="/" element={<Home codes={codes} />}></Route>
           <Route path="/qrcode/:id" element={<Show />}></Route>
-          <Route path="/qrcode/" element={<Show />}></Route>
+          <Route path="/qrcode/" element={<Show toggleShow={toggleShow} />}></Route>
         </Routes>
         <Footer />
       </Router>
