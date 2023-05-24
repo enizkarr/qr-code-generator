@@ -8,7 +8,7 @@ import { removeCode } from "../api/qrcode";
 import Modal from "react-bootstrap/Modal";
 import { ExclamationTriangleFill } from 'react-bootstrap-icons';
 import { openCode } from "../api/qrcode";
-import {downloadCode} from "../api/qrcode"
+import { downloadCode } from "../api/qrcode"
 import axios from "axios";
 function Home({ codes }) {
   const [renderShow, setRenderShow] = useState();
@@ -47,18 +47,14 @@ function Home({ codes }) {
     }
   };
 
-  const handleDownload = async (id, filename, urlCode) => {
+  const handleDownload = async (filename, qrCodeDataURL) => {
     try {
-      const response = await axios.get(`/api/qrcode/download/${id}`, { responseType: 'blob' });
-      const blob = new Blob([response.data]);
-      const url = URL.createObjectURL(blob);
-  
-      const link = document.createElement("a");
-      link.href = url;
+
+      const link = document.createElement('a');
+      link.href = qrCodeDataURL;
       link.download = filename;
       link.click();
-  
-      URL.revokeObjectURL(url);
+
     } catch (error) {
       console.log("This is an error", error);
     }
@@ -138,10 +134,10 @@ function Home({ codes }) {
 
 
   const openedCodeDetails = () => {
-    if(openedCode === null) {
+    if (openedCode === null) {
       return null;
     }
-    const {title, qrCodeDataURL, _id} = openedCode;
+    const { title, qrCodeDataURL, _id } = openedCode;
     return (
       <Modal
         size="lg"
@@ -150,21 +146,20 @@ function Home({ codes }) {
         show={showOpenedCodeModal}
         onHide={() => setShowOpenedCodeModal(false)}
       >
-        <Modal.Body style={{display:"flex", flexDirection:"column", justifyContent:"center" }}>
+        <Modal.Body style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
           <p>
             Scan the QR Code to access our location! Open the location in mobile browser.
           </p>
-          <Card.Img variant="top" src={qrCodeDataURL} style={{maxWidth:"60%"}} />
+          <Card.Img variant="top" src={qrCodeDataURL} style={{ maxWidth: "60%" }} />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
-          <Button onClick={() => handleDownload(_id, title, qrCodeDataURL)}>Download</Button>
+          <Button onClick={() => handleDownload(title, qrCodeDataURL)}>Download</Button>
           <Button onClick={() => handleDelete(_id)}>Delete</Button>
         </Modal.Footer>
       </Modal>
     )
   }
-  console.log(openedCode)
   return (
     <div>
       {renderCodes()}
@@ -190,7 +185,7 @@ function Home({ codes }) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {openedCodeDetails() }
+      {openedCodeDetails()}
     </div>
   );
 }

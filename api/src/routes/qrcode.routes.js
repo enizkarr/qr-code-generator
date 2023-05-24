@@ -7,7 +7,6 @@ router.get("/", getHome);
 router.post("/qrcode", generateQRCode);
 router.get("/qrcode", getQRCodes);
 router.get("/qrcode/:id", getQRCode);
-router.get("/qrcode/:id", downloadCode);
 router.delete("/qrcode/:id", deleteQRCode);
 
 export default router;

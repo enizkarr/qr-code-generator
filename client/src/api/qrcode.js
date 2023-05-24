@@ -39,8 +39,7 @@ const removeCode = async (id) => {
   }
 };
 
-const downloadCode = async (req, res) => {
-  const { id } = req.params;
+const downloadCode = async (id) => {
     try {
       const data = await axios.get(`${apiUrl}/${id}`);
       return data.data;
