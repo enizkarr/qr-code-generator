@@ -11,7 +11,6 @@ import { openCode } from "../api/qrcode";
 import { listCodes } from "../api/qrcode";
 
 function Home({ toggleShow }) {
-  const [renderShow, setRenderShow] = useState();
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
   const [openedCode, setOpenedCode] = useState(null);
@@ -81,7 +80,7 @@ function Home({ toggleShow }) {
             >
               {code.title}
             </Card.Title>
-            <Card.Img variant="top" src={code.qrCodeDataURL} />
+            <Card.Img alt="code url" variant="top" src={code.qrCodeDataURL} />
             <Card.Body
               style={{
                 display: "grid",
@@ -95,7 +94,7 @@ function Home({ toggleShow }) {
                 onClick={() => handleClick(code._id)}
                 style={{ paddingTop: "0px", maxWidth: "60px" }}
               >
-                <img src={Phone} style={{ width: "2.5rem" }} />
+                <img alt="phone" src={Phone} style={{ width: "2.5rem" }} />
               </Button>
               <Button
                 variant="primary"
@@ -122,6 +121,7 @@ function Home({ toggleShow }) {
           </div>
           <div style={{ marginTop: "3%" }}>
             <img
+              alt="qr random"
               className="presImg1"
               src={QRandom}
               style={{ maxWidth: "510px" }}
@@ -129,6 +129,7 @@ function Home({ toggleShow }) {
           </div>
           <div style={{ marginTop: "3%" }}>
             <img
+              alt="mock location"
               className="presImg2"
               src={LocationImg}
               style={{ maxWidth: "500px", height: "440px", paddingRight: "1%" }}
