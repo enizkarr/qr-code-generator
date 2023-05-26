@@ -15,7 +15,7 @@ import AppContext from "./AppContext.js";
 function Home() {
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
-  const { setShowOpenedCodeModal, setOpenedCode, toggleShow } =
+  const { setShowOpenedCodeModal, setOpenedCode, toggleShow, searchTerm } =
     useContext(AppContext);
   const [codes, setCodes] = useState([]);
 
@@ -25,7 +25,7 @@ function Home() {
       setCodes(data.data);
     };
     fetchCodes();
-  }, []);
+  }, [searchTerm]);
 
   const handleClick = async (id) => {
     try {
@@ -69,10 +69,13 @@ function Home() {
   };
 
   const renderCodes = () => {
+    const filteredCodes = codes.filter((code) =>
+      code.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     return (
-      <div className="cardsDiv">
-        {codes.map((code, index) => (
-          <Card key={code._id} style={{ width: "18rem", fontFamily: "Mogra" }}>
+      <div className="cardsDiv" style={{paddingBottom:"5%"}}>
+        {filteredCodes.map((code, index) => (
+          <Card key={code._id} style={{ width: "18rem", fontFamily: "Mogra", marginBottom:"0.5rem" }}>
             <Card.Title
               style={{
                 margin: "0px",
@@ -142,48 +145,6 @@ function Home() {
     );
   };
 
-  // const openedCodeDetails = () => {
-  //   if (openedCode === null) {
-  //     return null;
-  //   }
-  //   const { title, qrCodeDataURL, _id } = openedCode;
-  //   return (
-  //     <Modal
-  //       size="lg"
-  //       aria-labelledby="contained-modal-title-vcenter"
-  //       centered
-  //       show={showOpenedCodeModal}
-  //       onHide={() => setShowOpenedCodeModal(false)}
-  //     >
-  //       <Modal.Body
-  //         style={{
-  //           display: "flex",
-  //           flexDirection: "column",
-  //           justifyContent: "center",
-  //         }}
-  //       >
-  //         <p>
-  //           Scan the QR Code to access our location! Open the location in mobile
-  //           browser.
-  //         </p>
-  //         <Card.Img
-  //           variant="top"
-  //           src={qrCodeDataURL}
-  //           style={{ maxWidth: "60%" }}
-  //         />
-  //       </Modal.Body>
-  //       <Modal.Footer>
-  //         <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
-  //         <Button onClick={() => handleDownload(title, qrCodeDataURL)}>
-  //           Download
-  //         </Button>
-  //         <Button onClick={() => handleDelete(_id)}>Delete</Button>
-  //       </Modal.Footer>
-  //     </Modal>
-  //   );
-  // };
-  ////////////
-
   return (
     <div>
       {toggleShow ? renderCodes() : renderHome()}
@@ -212,7 +173,11 @@ function Home() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Show setCodes={setCodes} handleDownload={handleDownload} handleDelete={handleDelete}/>
+      <Show
+        setCodes={setCodes}
+        handleDownload={handleDownload}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }

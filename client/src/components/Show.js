@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Card } from "react-bootstrap";
+import AppContext from "./AppContext";
 
 function Show({ handleDelete, handleDownload }) {
-  const [openedCode] = useState(null);
-  const [showOpenedCodeModal, setShowOpenedCodeModal] = useState(false);
+  const { showOpenedCodeModal, setShowOpenedCodeModal, openedCode } =
+    useContext(AppContext);
 
   const openedCodeDetails = () => {
     if (openedCode === null) {

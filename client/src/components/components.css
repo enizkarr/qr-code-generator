@@ -66,6 +66,7 @@ h3 {
 
 footer {
   font-family: 'Mogra', cursive;
+  position: fixed;
 }
 
 .cardsDiv{

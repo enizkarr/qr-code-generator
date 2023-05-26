@@ -24,9 +24,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!******************************!*\
   !*** ./src/config/config.js ***!
   \******************************/
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("// require('dotenv').config()\n// console.log(process.env.PORT)\nmodule.exports = {\n  mongo: 'mongodb+srv://enizkaric:badonkadonk@cluster0.d5ekxjp.mongodb.net/?retryWrites=true&w=majority',\n  port: 44300\n};\n\n//# sourceURL=webpack://api/./src/config/config.js?");
+eval("(__webpack_require__(/*! dotenv */ \"dotenv\").config)();\n// console.log(process.env.PORT)\nmodule.exports = {\n  mongo: process.env.MONGO,\n  port: process.env.PORT\n};\n\n//# sourceURL=webpack://api/./src/config/config.js?");
 
 /***/ }),
 
@@ -104,6 +104,17 @@ module.exports = require("body-parser");
 
 "use strict";
 module.exports = require("cors");
+
+/***/ }),
+
+/***/ "dotenv":
+/*!*************************!*\
+  !*** external "dotenv" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("dotenv");
 
 /***/ }),
 

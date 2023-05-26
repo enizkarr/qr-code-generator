@@ -8,6 +8,7 @@ export const AppProvider = ({ children }) => {
   const [toggleShow, setToggleShow] = useState(false);
   const [openedCode, setOpenedCode] = useState(null);
   const [showOpenedCodeModal, setShowOpenedCodeModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchCodes = async () => {
@@ -18,7 +19,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ codes, toggleShow, setToggleShow, openedCode, showOpenedCodeModal, setShowOpenedCodeModal, setOpenedCode }}>
+    <AppContext.Provider value={{ codes, toggleShow, setToggleShow, openedCode, showOpenedCodeModal, setShowOpenedCodeModal, setOpenedCode, searchTerm, setSearchTerm }}>
       {children}
     </AppContext.Provider>
   );

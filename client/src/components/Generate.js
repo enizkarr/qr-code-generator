@@ -1,39 +1,44 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { generateCode } from "../api/qrcode";
 import { useNavigate } from "react-router-dom";
+import AppContext from "./AppContext";
 
 function Generate() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
-    title:"",
-    url:""
-  })
+    title: "",
+    url: "",
+  });
+  const { setShowOpenedCodeModal } = useContext(AppContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleInputChange = (event) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name] : value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleGenerate = async () => {
     try {
       const data = await generateCode(formData.title, formData.url);
+      setShow(false)
     } catch (error) {
-      console.error("this is an error",error);
+      console.error("this is an error", error);
     }
-  navigate('/qrcode');
-  }
+  };
 
   return (
-    <div className="headerDiv" style={{float:"right", width:"5%"}} >
+    <div
+      className="headerDiv"
+      style={{ float: "right", width: "5%", margin: "1vh" }}
+    >
       <Button variant="success" onClick={handleShow}>
         Generate
       </Button>
