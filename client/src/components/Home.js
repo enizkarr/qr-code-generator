@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import QRandom from "../assets/images/QRandom.jpg";
 import LocationImg from "../assets/images/Location.jpg";
 import Card from "react-bootstrap/Card";
@@ -9,12 +9,14 @@ import Modal from "react-bootstrap/Modal";
 import { ExclamationTriangleFill } from "react-bootstrap-icons";
 import { openCode } from "../api/qrcode";
 import { listCodes } from "../api/qrcode";
+import Show from "./Show";
+import AppContext from "./AppContext.js";
 
-function Home({ toggleShow }) {
+function Home() {
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
-  const [openedCode, setOpenedCode] = useState(null);
-  const [showOpenedCodeModal, setShowOpenedCodeModal] = useState(false);
+  const { setShowOpenedCodeModal, setOpenedCode, toggleShow } =
+    useContext(AppContext);
   const [codes, setCodes] = useState([]);
 
   useEffect(() => {
@@ -140,46 +142,46 @@ function Home({ toggleShow }) {
     );
   };
 
-  const openedCodeDetails = () => {
-    if (openedCode === null) {
-      return null;
-    }
-    const { title, qrCodeDataURL, _id } = openedCode;
-    return (
-      <Modal
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={showOpenedCodeModal}
-        onHide={() => setShowOpenedCodeModal(false)}
-      >
-        <Modal.Body
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <p>
-            Scan the QR Code to access our location! Open the location in mobile
-            browser.
-          </p>
-          <Card.Img
-            variant="top"
-            src={qrCodeDataURL}
-            style={{ maxWidth: "60%" }}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
-          <Button onClick={() => handleDownload(title, qrCodeDataURL)}>
-            Download
-          </Button>
-          <Button onClick={() => handleDelete(_id)}>Delete</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
+  // const openedCodeDetails = () => {
+  //   if (openedCode === null) {
+  //     return null;
+  //   }
+  //   const { title, qrCodeDataURL, _id } = openedCode;
+  //   return (
+  //     <Modal
+  //       size="lg"
+  //       aria-labelledby="contained-modal-title-vcenter"
+  //       centered
+  //       show={showOpenedCodeModal}
+  //       onHide={() => setShowOpenedCodeModal(false)}
+  //     >
+  //       <Modal.Body
+  //         style={{
+  //           display: "flex",
+  //           flexDirection: "column",
+  //           justifyContent: "center",
+  //         }}
+  //       >
+  //         <p>
+  //           Scan the QR Code to access our location! Open the location in mobile
+  //           browser.
+  //         </p>
+  //         <Card.Img
+  //           variant="top"
+  //           src={qrCodeDataURL}
+  //           style={{ maxWidth: "60%" }}
+  //         />
+  //       </Modal.Body>
+  //       <Modal.Footer>
+  //         <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
+  //         <Button onClick={() => handleDownload(title, qrCodeDataURL)}>
+  //           Download
+  //         </Button>
+  //         <Button onClick={() => handleDelete(_id)}>Delete</Button>
+  //       </Modal.Footer>
+  //     </Modal>
+  //   );
+  // };
   ////////////
 
   return (
@@ -210,7 +212,7 @@ function Home({ toggleShow }) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {openedCodeDetails()}
+      <Show setCodes={setCodes} handleDownload={handleDownload} handleDelete={handleDelete}/>
     </div>
   );
 }

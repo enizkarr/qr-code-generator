@@ -6,34 +6,22 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Show from "./components/Show";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { listCodes } from "./api/qrcode";
+import { AppProvider } from "./components/AppContext";
 
 function App() {
-  const [codes, setCodes] = useState([]);
-  const [toggleShow, setToggleShow] = useState(false);
-
-  useEffect(() => {
-    const fetchCodes = async () => {
-      const data = await listCodes();
-      setCodes(data.data);
-    };
-    fetchCodes();
-  }, []);
 
   return (
     <div className="App">
       <Router>
-        <Header setToggleShow={setToggleShow} toggleShow={toggleShow} />
-        <Routes>
-          <Route path="/" element={<Home codes={codes} />}></Route>
-          <Route
-            path="/qrcode/"
-            element={<Home toggleShow={toggleShow} />}
-          ></Route>
-          <Route path="/qrcode/:id" element={<Show />}></Route>
-        </Routes>
-        <Footer />
+        <AppProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/qrcode/" element={<Home />} />
+            <Route path="/qrcode/:id" element={<Show />} />
+          </Routes>
+          <Footer />
+        </AppProvider>
       </Router>
     </div>
   );

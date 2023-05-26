@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Logo from "../assets/images/logo.png";
 import Generate from "./Generate";
 import { Link } from "react-router-dom";
-function Header({ setToggleShow, toggleShow }) {
+import AppContext from "./AppContext";
+
+function Header() {
+  const {setToggleShow} = useContext(AppContext)
   const handleShow = () => {
     setToggleShow(true);
   };
@@ -22,6 +25,7 @@ function Header({ setToggleShow, toggleShow }) {
             src={Logo}
             alt="Logo"
             style={{ maxWidth: "60px", float: "left" }}
+            onClick={()=>setToggleShow(false)}
           />
         </Link>
         <form>
