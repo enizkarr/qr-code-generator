@@ -30,7 +30,7 @@ function Show({ handleDelete, handleDownload }) {
             display: "grid",
           }}
         >
-          <h3 style={{margin:"0"}}>{title}</h3>
+          <h3 style={{margin:"0", fontWeight:"bold" }}>{title}</h3>
           <p style={{margin:"0", marginTop:"2%"}}>
             Scan the QR Code to access our location! Open the location in mobile
             browser.
