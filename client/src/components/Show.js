@@ -3,8 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Card } from "react-bootstrap";
 import AppContext from "./AppContext";
-import { BsDownload } from 'react-icons/bootstrap';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function Show({ handleDelete, handleDownload }) {
   const { showOpenedCodeModal, setShowOpenedCodeModal, openedCode } =
@@ -25,27 +27,39 @@ function Show({ handleDelete, handleDownload }) {
       >
         <Modal.Body
           style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            display: "grid",
           }}
         >
-          <p>
+          <h3 style={{margin:"0"}}>{title}</h3>
+          <p style={{margin:"0", marginTop:"2%"}}>
             Scan the QR Code to access our location! Open the location in mobile
             browser.
           </p>
           <Card.Img
             variant="top"
             src={qrCodeDataURL}
-            style={{ maxWidth: "60%" }}
+            style={{ maxWidth: "60%", margin: "0 auto" }}
           />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => setShowOpenedCodeModal(false)}>Return</Button>
-          <Button onClick={() => handleDownload(title, qrCodeDataURL)}>
-            Download
+        <Modal.Footer
+          style={{
+            display: "flexbox",
+            justifyContent: "center",
+            columnGap: "4%",
+          }}
+        >
+          <Button onClick={() => setShowOpenedCodeModal(false)}>
+            <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: "4vh" }} />
           </Button>
-          <Button onClick={() => handleDelete(_id)}>Delete</Button>
+          <Button
+            className="btn btn-success"
+            onClick={() => handleDownload(title, qrCodeDataURL)}
+          >
+            <FontAwesomeIcon icon={faDownload} style={{ fontSize: "4vh" }} />
+          </Button>
+          <Button className="btn btn-danger" onClick={() => handleDelete(_id)}>
+            <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "4vh" }} />
+          </Button>
         </Modal.Footer>
       </Modal>
     );
