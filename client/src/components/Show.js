@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Card } from "react-bootstrap";
 import AppContext from "./AppContext";
+import { BsDownload } from 'react-icons/bootstrap';
+
 
 function Show({ handleDelete, handleDownload }) {
   const { showOpenedCodeModal, setShowOpenedCodeModal, openedCode } =
