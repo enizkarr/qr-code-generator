@@ -18,7 +18,10 @@ function Home() {
   const { setShowOpenedCodeModal, setOpenedCode, toggleShow, searchTerm } =
     useContext(AppContext);
   const [codes, setCodes] = useState([]);
+  const [successfulDelete, setSuccessfulDelete] = useState(false);
+  const [successfulDelete2, setSuccessfulDelete2] = useState(false);
 
+  const [deletedID, setDeletedID] = useState();
   useEffect(() => {
     const fetchCodes = async () => {
       const data = await listCodes();
@@ -37,10 +40,12 @@ function Home() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, title) => {
     try {
       setCodeToDelete(id);
       setConfirmationModal(true);
+      setDeletedID(title)
+      
     } catch (error) {
       console.error("this is an error", error);
     }
@@ -51,6 +56,10 @@ function Home() {
         await removeCode(codeToDelete);
         setCodeToDelete(null);
         setConfirmationModal(false);
+        setSuccessfulDelete(true);
+        setTimeout(() => {
+          setSuccessfulDelete(false);
+        }, 3000);
       }
     } catch (error) {
       console.log("Thisis an error", error);
@@ -73,9 +82,18 @@ function Home() {
       code.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     return (
-      <div className="cardsDiv" style={{paddingBottom:"5%"}}>
-        {filteredCodes.map((code, index) => (
-          <Card key={code._id} style={{ width: "18rem", fontFamily: "Mogra", marginBottom:"0.5rem" }}>
+      <div className="cardsDiv" style={{ paddingBottom: "5%" }}>
+        {successfulDelete ? deleteWasSuccessful(deletedID) : null}
+
+        {filteredCodes.map((code) => (
+          <Card
+            key={code._id}
+            style={{
+              width: "18rem",
+              fontFamily: "Mogra",
+              marginBottom: "0.5rem",
+            }}
+          >
             <Card.Title
               style={{
                 margin: "0px",
@@ -103,7 +121,7 @@ function Home() {
               </Button>
               <Button
                 variant="primary"
-                onClick={() => handleDelete(code._id)}
+                onClick={() => handleDelete(code._id, code.title)}
                 style={{ width: "100%" }}
               >
                 Delete
@@ -145,6 +163,19 @@ function Home() {
     );
   };
 
+  const deleteWasSuccessful = (title) => {
+    return (
+      <div className="deleteSuccessMessage">
+        <span className="deleteIcon">
+          <ExclamationTriangleFill size={40} color="orange" />
+        </span>
+        <span className="deleteText">
+          The QR code {title} was successfuly deleted!
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div>
       {toggleShow ? renderCodes() : renderHome()}
@@ -168,7 +199,7 @@ function Home() {
           >
             Cancel
           </Button>
-          <Button variant="danger" onClick={confirmDelete}>
+          <Button variant="danger" onClick={() => confirmDelete()}>
             Delete
           </Button>
         </Modal.Footer>
@@ -177,6 +208,8 @@ function Home() {
         setCodes={setCodes}
         handleDownload={handleDownload}
         handleDelete={handleDelete}
+        deleteWasSuccessful={deleteWasSuccessful}
+        successfulDelete={successfulDelete}
       />
     </div>
   );

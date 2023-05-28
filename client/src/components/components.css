@@ -78,3 +78,21 @@ footer {
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
+
+.deleteSuccessMessage {
+  z-index: 999;
+  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #11b311;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.deleteText {
+  color: white;
+  font-weight: bold;
+}

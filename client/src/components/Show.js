@@ -8,7 +8,12 @@ import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-function Show({ handleDelete, handleDownload }) {
+function Show({
+  handleDelete,
+  handleDownload,
+  successfulDelete,
+  deleteWasSuccessful,
+}) {
   const { showOpenedCodeModal, setShowOpenedCodeModal, openedCode } =
     useContext(AppContext);
 
@@ -25,13 +30,14 @@ function Show({ handleDelete, handleDownload }) {
         show={showOpenedCodeModal}
         onHide={() => setShowOpenedCodeModal(false)}
       >
+        {successfulDelete ? deleteWasSuccessful(title) : null}
         <Modal.Body
           style={{
             display: "grid",
           }}
         >
-          <h3 style={{margin:"0", fontWeight:"bold" }}>{title}</h3>
-          <p style={{margin:"0", marginTop:"2%"}}>
+          <h3 style={{ margin: "0", fontWeight: "bold" }}>{title}</h3>
+          <p style={{ margin: "0", marginTop: "2%" }}>
             Scan the QR Code to access our location! Open the location in mobile
             browser.
           </p>
