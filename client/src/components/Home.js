@@ -156,7 +156,6 @@ function Home() {
               alt="qr random"
               className="presImg1"
               src={QRandom}
-              style={{ maxWidth: "510px" }}
             />
           </div>
           <div style={{ marginTop: "3%" }}>
@@ -164,7 +163,6 @@ function Home() {
               alt="mock location"
               className="presImg2"
               src={LocationImg}
-              style={{ maxWidth: "500px", height: "440px", paddingRight: "1%" }}
             />
           </div>
         </div>

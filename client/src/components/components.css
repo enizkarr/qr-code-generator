@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Mogra&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mogra&display=swap");
 
 .headerDiv {
-  font-family: 'Mogra', cursive;
-
+  font-family: "Mogra", cursive;
 }
 .searchInput {
   float: left;
@@ -37,16 +36,22 @@ h3 {
 
 .presImg1 {
   position: absolute;
-  top: 7rem;
+  top: 10rem;
   left: 23%;
   transform: rotate(45deg);
+  max-width: 510px;
+  width: 19vw;
 }
 .presImg2 {
   transform: rotate(45deg);
   position: absolute;
   left: 50%;
-  top: 11rem;
+  top: 15rem;
   z-index: 1;
+  max-width: 500px;
+  width: 22vw;
+  height: 30vh;
+  padding-right: 1%;
 }
 
 .homeList {
@@ -56,20 +61,20 @@ h3 {
   list-style: none;
 }
 
-.homeList h3{
+.homeList h3 {
   font-size: 4rem;
   padding-top: 2%;
   flex-grow: 1;
   text-align: center;
-  font-family: 'Mogra', cursive;
+  font-family: "Mogra", cursive;
 }
 
 footer {
-  font-family: 'Mogra', cursive;
+  font-family: "Mogra", cursive;
   position: fixed;
 }
 
-.cardsDiv{
+.cardsDiv {
   width: 98%;
   height: 100%;
   margin: 1%;
