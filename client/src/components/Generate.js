@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { generateCode } from "../api/qrcode";
 import { useNavigate } from "react-router-dom";
 import AppContext from "./AppContext";
+import { listCodes } from "../api/qrcode";
 
 function Generate() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Generate() {
     title: "",
     url: "",
   });
-  const { setShowOpenedCodeModal } = useContext(AppContext);
+  const { setShowOpenedCodeModal, setCodes } = useContext(AppContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -27,8 +28,10 @@ function Generate() {
 
   const handleGenerate = async () => {
     try {
-      const data = await generateCode(formData.title, formData.url);
+       await generateCode(formData.title, formData.url);
+      const data = await listCodes();
       setShow(false)
+      setCodes(data.data)
     } catch (error) {
       console.error("this is an error", error);
     }

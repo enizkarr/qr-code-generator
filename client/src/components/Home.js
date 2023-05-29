@@ -7,6 +7,7 @@ import Phone from "../assets/images/phone.svg";
 import { removeCode } from "../api/qrcode";
 import Modal from "react-bootstrap/Modal";
 import { ExclamationTriangleFill } from "react-bootstrap-icons";
+import { Check } from "react-bootstrap-icons";
 import { openCode } from "../api/qrcode";
 import { listCodes } from "../api/qrcode";
 import Show from "./Show";
@@ -15,11 +16,9 @@ import AppContext from "./AppContext.js";
 function Home() {
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
-  const { setShowOpenedCodeModal, setOpenedCode, toggleShow, searchTerm } =
+  const { setShowOpenedCodeModal, setOpenedCode, toggleShow, searchTerm, codes, setCodes } =
     useContext(AppContext);
-  const [codes, setCodes] = useState([]);
   const [successfulDelete, setSuccessfulDelete] = useState(false);
-  const [successfulDelete2, setSuccessfulDelete2] = useState(false);
 
   const [deletedID, setDeletedID] = useState();
   useEffect(() => {
@@ -54,12 +53,15 @@ function Home() {
     try {
       if (codeToDelete) {
         await removeCode(codeToDelete);
+        
         setCodeToDelete(null);
         setConfirmationModal(false);
         setSuccessfulDelete(true);
         setTimeout(() => {
           setSuccessfulDelete(false);
         }, 3000);
+        const data = await listCodes()
+        setCodes(data.data)
       }
     } catch (error) {
       console.log("Thisis an error", error);
@@ -167,7 +169,7 @@ function Home() {
     return (
       <div className="deleteSuccessMessage">
         <span className="deleteIcon">
-          <ExclamationTriangleFill size={40} color="orange" />
+          <Check size={45} color="white" />
         </span>
         <span className="deleteText">
           The QR code {title} was successfuly deleted!

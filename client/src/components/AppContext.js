@@ -19,7 +19,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ codes, toggleShow, setToggleShow, openedCode, showOpenedCodeModal, setShowOpenedCodeModal, setOpenedCode, searchTerm, setSearchTerm }}>
+    <AppContext.Provider value={{ codes, setCodes, toggleShow, setToggleShow, openedCode, showOpenedCodeModal, setShowOpenedCodeModal, setOpenedCode, searchTerm, setSearchTerm }}>
       {children}
     </AppContext.Provider>
   );
