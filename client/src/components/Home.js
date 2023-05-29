@@ -16,8 +16,14 @@ import AppContext from "./AppContext.js";
 function Home() {
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [codeToDelete, setCodeToDelete] = useState(null);
-  const { setShowOpenedCodeModal, setOpenedCode, toggleShow, searchTerm, codes, setCodes } =
-    useContext(AppContext);
+  const {
+    setShowOpenedCodeModal,
+    setOpenedCode,
+    toggleShow,
+    searchTerm,
+    codes,
+    setCodes,
+  } = useContext(AppContext);
   const [successfulDelete, setSuccessfulDelete] = useState(false);
 
   const [deletedID, setDeletedID] = useState();
@@ -43,8 +49,7 @@ function Home() {
     try {
       setCodeToDelete(id);
       setConfirmationModal(true);
-      setDeletedID(title)
-      
+      setDeletedID(title);
     } catch (error) {
       console.error("this is an error", error);
     }
@@ -53,15 +58,16 @@ function Home() {
     try {
       if (codeToDelete) {
         await removeCode(codeToDelete);
-        
+
         setCodeToDelete(null);
         setConfirmationModal(false);
         setSuccessfulDelete(true);
+        setShowOpenedCodeModal(false);
         setTimeout(() => {
           setSuccessfulDelete(false);
         }, 3000);
-        const data = await listCodes()
-        setCodes(data.data)
+        const data = await listCodes();
+        setCodes(data.data);
       }
     } catch (error) {
       console.log("Thisis an error", error);
@@ -84,54 +90,55 @@ function Home() {
       code.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     return (
-      <div className="cardsDiv" style={{ paddingBottom: "5%" }}>
-        {successfulDelete ? deleteWasSuccessful(deletedID) : null}
-
-        {filteredCodes.map((code) => (
-          <Card
-            key={code._id}
-            style={{
-              width: "18rem",
-              fontFamily: "Mogra",
-              marginBottom: "0.5rem",
-            }}
-          >
-            <Card.Title
+      <>
+        <div className={"cardsDiv"} style={{ paddingBottom: "5%" }}>
+          {successfulDelete ? deleteWasSuccessful(deletedID) : null}
+          {filteredCodes.map((code) => (
+            <Card
+              key={code._id}
               style={{
-                margin: "0px",
-                textAlign: "center",
+                width: "18rem",
                 fontFamily: "Mogra",
+                marginBottom: "0.5rem",
               }}
             >
-              {code.title}
-            </Card.Title>
-            <Card.Img alt="code url" variant="top" src={code.qrCodeDataURL} />
-            <Card.Body
-              style={{
-                display: "grid",
-                justifyItems: "center",
-                paddingTop: "0px",
-                marginTop: "0px",
-              }}
-            >
-              <Button
-                variant="link"
-                onClick={() => handleClick(code._id)}
-                style={{ paddingTop: "0px", maxWidth: "60px" }}
+              <Card.Title
+                style={{
+                  margin: "0px",
+                  textAlign: "center",
+                  fontFamily: "Mogra",
+                }}
               >
-                <img alt="phone" src={Phone} style={{ width: "2.5rem" }} />
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => handleDelete(code._id, code.title)}
-                style={{ width: "100%" }}
+                {code.title}
+              </Card.Title>
+              <Card.Img alt="code url" variant="top" src={code.qrCodeDataURL} />
+              <Card.Body
+                style={{
+                  display: "grid",
+                  justifyItems: "center",
+                  paddingTop: "0px",
+                  marginTop: "0px",
+                }}
               >
-                Delete
-              </Button>
-            </Card.Body>
-          </Card>
-        ))}
-      </div>
+                <Button
+                  variant="link"
+                  onClick={() => handleClick(code._id)}
+                  style={{ paddingTop: "0px", maxWidth: "60px" }}
+                >
+                  <img alt="phone" src={Phone} style={{ width: "2.5rem" }} />
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => handleDelete(code._id, code.title)}
+                  style={{ width: "100%" }}
+                >
+                  Delete
+                </Button>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
+      </>
     );
   };
 

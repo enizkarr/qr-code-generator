@@ -23,51 +23,53 @@ function Show({
     }
     const { title, qrCodeDataURL, _id } = openedCode;
     return (
-      <Modal
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={showOpenedCodeModal}
-        onHide={() => setShowOpenedCodeModal(false)}
-      >
-        {successfulDelete ? deleteWasSuccessful(title) : null}
-        <Modal.Body
-          style={{
-            display: "grid",
-          }}
+        <Modal
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={showOpenedCodeModal}
+          onHide={() => setShowOpenedCodeModal(false)}
         >
-          <h3 style={{ margin: "0", fontWeight: "bold" }}>{title}</h3>
-          <p style={{ margin: "0", marginTop: "2%" }}>
-            Scan the QR Code to access our location! Open the location in mobile
-            browser.
-          </p>
-          <Card.Img
-            variant="top"
-            src={qrCodeDataURL}
-            style={{ maxWidth: "60%", margin: "0 auto" }}
-          />
-        </Modal.Body>
-        <Modal.Footer
-          style={{
-            display: "flexbox",
-            justifyContent: "center",
-            columnGap: "4%",
-          }}
-        >
-          <Button onClick={() => setShowOpenedCodeModal(false)}>
-            <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: "4vh" }} />
-          </Button>
-          <Button
-            className="btn btn-success"
-            onClick={() => handleDownload(title, qrCodeDataURL)}
+          <Modal.Body
+            style={{
+              display: "grid",
+            }}
           >
-            <FontAwesomeIcon icon={faDownload} style={{ fontSize: "4vh" }} />
-          </Button>
-          <Button className="btn btn-danger" onClick={() => handleDelete(_id)}>
-            <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "4vh" }} />
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            <h3 style={{ margin: "0", fontWeight: "bold" }}>{title}</h3>
+            <p style={{ margin: "0", marginTop: "2%" }}>
+              Scan the QR Code to access our location! Open the location in
+              mobile browser.
+            </p>
+            <Card.Img
+              variant="top"
+              src={qrCodeDataURL}
+              style={{ maxWidth: "60%", margin: "0 auto" }}
+            />
+          </Modal.Body>
+          <Modal.Footer
+            style={{
+              display: "flexbox",
+              justifyContent: "center",
+              columnGap: "4%",
+            }}
+          >
+            <Button onClick={() => setShowOpenedCodeModal(false)}>
+              <FontAwesomeIcon icon={faArrowLeft} style={{ fontSize: "4vh" }} />
+            </Button>
+            <Button
+              className="btn btn-success"
+              onClick={() => handleDownload(title, qrCodeDataURL)}
+            >
+              <FontAwesomeIcon icon={faDownload} style={{ fontSize: "4vh" }} />
+            </Button>
+            <Button
+              className="btn btn-danger"
+              onClick={() => handleDelete(_id)}
+            >
+              <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "4vh" }} />
+            </Button>
+          </Modal.Footer>
+        </Modal>
     );
   };
 

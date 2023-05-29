@@ -88,7 +88,7 @@ footer {
   align-items: center;
   justify-content: center;
   background-color: #24e51ddc;
-  border: 1px solid #ced4da;
+  border: 1px solid #0b471f;
   border-radius: 4px;
 }
 
@@ -96,4 +96,8 @@ footer {
   font-size: 1.5vw;
   color: white;
   font-weight: bold;
+}
+
+.hiddenModal {
+  display: none;
 }
