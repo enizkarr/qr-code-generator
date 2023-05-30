@@ -16,7 +16,7 @@ const generateCode = async (title, url) => {
   console.log(title);
   console.log(url);
   try {
-    const response = await axios.post(`${apiUrl}`, { title, url });
+    await axios.post(`${apiUrl}`, { title, url });
   } catch (error) {
     console.log(error);
   }
