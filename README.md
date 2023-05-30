@@ -32,7 +32,7 @@ To run the QR Code Generator Web App locally, follow these steps:
 
 2. In the root folder of project install the necessary dependencies by running the command: npm install.
 3. Configure the MongoDB connection settings in the backend.
-4. Since the app is using CONCURENTLY package, only single command in root folder will start both server and client by running the command: npm start.
+4. Since the app is using CONCURENTLY package, only single command in root folder will start both server and client by running the command: npm run start.
 
 Access the app in your web browser at the specified URL.
 Make sure you have Node.js and MongoDB installed on your machine before running the app.

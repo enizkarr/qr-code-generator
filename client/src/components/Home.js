@@ -31,6 +31,7 @@ function Home() {
     const fetchCodes = async () => {
       const data = await listCodes();
       setCodes(data.data);
+      console.log(codes)
     };
     fetchCodes();
   }, [searchTerm]);

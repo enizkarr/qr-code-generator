@@ -106,3 +106,15 @@ footer {
 .hiddenModal {
   display: none;
 }
+
+.errorMessageDiv {
+  z-index: 999;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e51d1ddc;
+  border: 1px solid #0b471f;
+  border-radius: 4px;
+}
