@@ -1,9 +1,7 @@
 import _ from "lodash";
 import QrCode from "../models/Qcode.model";
 import QRCode from "qrcode";
-import path from "path";
-import fs from "fs";
-
+import { validateURL } from "../validation/validation";
 const getHome = async (req, res) => {
   try {
     res.send("Welcome to the QR Code API");
@@ -15,6 +13,9 @@ const getHome = async (req, res) => {
 const generateQRCode = async (req, res) => {
   const { title, url } = req.body;
 
+  if (!validateURL(url)) {
+    return res.status(400).json({ message: "Invalid URL" });
+  }
   try {
     const qrCodeDataURL = await QRCode.toDataURL(url);
     const qrCode = new QrCode({ title, url, qrCodeDataURL });

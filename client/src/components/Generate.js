@@ -85,7 +85,7 @@ function Generate() {
   return (
     <div
       className="headerDiv"
-      style={{ float: "right", width: "5%", margin: "1vh" }}
+      style={{ float: "right" }}
     >
 
       <Button variant="success" onClick={handleShow}>

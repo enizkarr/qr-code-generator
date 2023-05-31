@@ -2,6 +2,8 @@
 
 .headerDiv {
   font-family: "Mogra", cursive;
+  /* margin: 1vh;
+  width: 5%; */
 }
 .searchInput {
   float: left;
@@ -117,4 +119,74 @@ footer {
   background-color: #e51d1ddc;
   border: 1px solid #0b471f;
   border-radius: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+  .searchInput {
+    float: none;
+    margin: 0px;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    width: 60%;
+  }
+  .headerDiv {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    padding: 0px;
+  }
+  .two-buttons-div{
+    display: flex;
+  }
+  header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .homeDiv {
+    flex-direction: column;
+  }
+    .two-buttons-div button {
+  
+      width: 4rem;
+      margin: 0px auto;
+      height: 3rem;
+      padding: 0px;
+    }
+  .presImg1,
+  .presImg2 {
+    position: static;
+    transform: none;
+    width: 50%;
+    margin: 1rem auto;
+  }
+
+  .homeList h3 {
+    font-size: 2rem;
+  }
+
+  .cardsDiv {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .deleteSuccessMessage {
+    width: 80vw;
+    height: 30vh;
+  }
+
+  .deleteText {
+    font-size: 3vw;
+  }
+
+  .errorMessageDiv {
+    width: 80vw;
+    height: 15vh;
+  }
+  .clickMeDiv{
+    position: relative;
+    padding-left: 3rem;
+  }
 }

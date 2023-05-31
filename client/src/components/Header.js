@@ -16,10 +16,10 @@ function Header() {
 
   const goBackFunction = () => {
     if (toggleShow) {
-      return <div style={{position:"absolute",marginLeft:"4%", paddingTop:"1%"}}>
-        <FontAwesomeIcon icon={faArrowLeftLong} style={{margin:""}}/>
+      return <div className="clickMeDiv" style={{ position: "absolute", marginLeft: "5%", paddingTop: "1%" }}>
+        <FontAwesomeIcon icon={faArrowLeftLong} />
         Click Me
-        </div>;
+      </div>;
     } else return null;
   };
 
@@ -43,7 +43,6 @@ function Header() {
         {goBackFunction()}
         <form>
           <input
-            style={{marginTop:"1vh"}}
             className="searchInput"
             type="text"
             placeholder="Search"
@@ -51,18 +50,20 @@ function Header() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
+        <div className="two-buttons-div">
         <Link to="/qrcode">
-          <Button
-            variant="warning"
-            onClick={() => handleShow()}
-            style={{ float: "right", width: "5%", margin:"1vh" }}
-          >
-            Show
-          </Button>
+            <Button
+              variant="warning"
+              onClick={() => handleShow()}
+            style={{ float: "right" }}
+            >
+              Show
+            </Button>
         </Link>
         <Generate />
-      </header>
     </div>
+      </header >
+    </div >
   );
 }
 
