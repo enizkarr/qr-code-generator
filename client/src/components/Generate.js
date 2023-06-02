@@ -60,7 +60,6 @@ function Generate() {
       setTimeout(() => {
         setValidationMessage(false);
       }, 3000);
-      setFormData({ title: "", url: "" });
       return null;
     }
 
@@ -69,6 +68,7 @@ function Generate() {
       const data = await listCodes();
       setShow(false);
       setCodes(data.data);
+      setFormData({ title: "", url: "" });
     } catch (error) {
       console.error("this is an error", error);
     }
