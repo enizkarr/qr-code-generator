@@ -57,6 +57,7 @@ function Generate() {
     if (inputValidation(codes, formData.title, formData.url)) {
       setValidationMessage(true);
       setMessage(returnValue);
+      setFormData({ title: "", url: "" });
       setTimeout(() => {
         setValidationMessage(false);
       }, 3000);
