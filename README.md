@@ -33,7 +33,7 @@ To run the QR Code Generator Web App locally, follow these steps:
 2. In the root folder of project install the necessary dependencies by running the command: npm install.
 4. It is required to install necessary dependencies in both api and client folder. Thus, change your directory and run npm install command in both api and client directory.
 4. Create .env file in api directory with the following variables:
-    MONGO='mongodb+srv://enizkaric:badonkadonk@cluster0.d5ekxjp.mongodb.net/?retryWrites=true&w=majority'
+    MONGO='YOUR MONGO SERVER LINK'
     PORT=5000
 5. Since the app is using CONCURENTLY package, only single command in root folder will start both server and client by running the command: npm start.
 
