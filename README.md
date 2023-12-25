@@ -1,4 +1,4 @@
-QR Code Generatorr
+QR Code Generator
 The QR Code Generator is a web application built using React JS for the frontend and Node.js with Express and MongoDB for the backend. It provides users with the ability to create QR codes that can be used to link URLs, digital files, or media. The generated QR codes are downloadable in PNG format. The app offers various features to enhance user experience and manage the generated QR codes efficiently.
 
 Features
